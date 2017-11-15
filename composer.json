@@ -1,0 +1,45 @@
+{
+    "name": "phwoolcon/test-starter",
+    "type": "library",
+    "description": "PHPUnit Test Starter for Phwoolcon Projects",
+    "keywords": [
+        "phwoolcon",
+        "test",
+        "phpunit"
+    ],
+    "homepage": "https://github.com/phwoolcon/test-starter",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Christopher CHEN",
+            "email": "fishdrowned@gmail.com",
+            "homepage": "https://github.com/Fishdrowned",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "squizlabs/php_codesniffer": "~3.0",
+        "phpunit/phpunit": "~4.0|~5.0|~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phwoolcon\\TestStarter\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phwoolcon\\TestStarter\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
