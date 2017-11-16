@@ -30,13 +30,13 @@ script:
   # Check code style
   - vendor/bin/phpcs
   # Running unit test
-  - vendor/bin/phpunit --stderr --verbose --coverage-clover=coverage.clover
+  - vendor/bin/phpunit --stderr --verbose
 
 after_success:
   - |
     if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then
       wget https://scrutinizer-ci.com/ocular.phar
-      php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+      php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
     fi
 
 branches:
