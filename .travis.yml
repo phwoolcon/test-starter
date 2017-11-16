@@ -20,9 +20,10 @@ cache:
 
 before_install:
   - pecl channel-update pecl.php.net
+  # Install dependencies ignoring ext-phalcon
+  - composer install --prefer-source --no-interaction --ignore-platform-reqs
   # Install Extensions
   - vendor/bin/ci-install-extensions
-  - composer install --prefer-source --no-interaction
 
 script:
   # Check code style
