@@ -23,7 +23,7 @@ before_install:
   # Install dependencies ignoring ext-phalcon
   - composer install --prefer-source --no-interaction --ignore-platform-reqs
   # Install Extensions
-  - vendor/bin/ci-install-extensions
+  - bash vendor/phwoolcon/phwoolcon/bin/ci-install-extensions
 
 script:
   # Check code style
