@@ -1,3 +1,4 @@
-build
-composer.lock
+/build
+/composer.lock
 vendor
+/tests/root/storage
