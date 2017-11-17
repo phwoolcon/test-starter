@@ -13,25 +13,35 @@ class Config extends PhwoolconConfig
     {
         $config = new PhalconConfig();
         $rootDir = dirname($_SERVER['PHWOOLCON_VENDOR_PATH']);
-        if (is_dir($dir = $rootDir . '/phwoolcon-package/config')) {
-            $config->merge(new PhalconConfig(static::loadFiles(glob($dir . '/*.php'))));
-        }
-        foreach ($packageFiles = detectPhwoolconPackageFiles($_SERVER['PHWOOLCON_VENDOR_PATH']) as $package) {
-            $path = dirname(dirname($package));
-            if ($files = glob($path . '/phwoolcon-package/config/*.php')) {
-                $config->merge(new PhalconConfig(static::loadFiles($files)));
-            }
-        }
+        $currentPackageDir = $rootDir . '/phwoolcon-package/config';
+        $hasCurrentConfig = is_dir($currentPackageDir);
+
+        $filesToMerge = [];
+
+        // Add configs in current package
+        $hasCurrentConfig and $filesToMerge[] = glob($currentPackageDir . '/*.php');
+
+        $packageFiles = detectPhwoolconPackageFiles($_SERVER['PHWOOLCON_VENDOR_PATH']);
+        // Add vendor configs
         foreach ($packageFiles as $package) {
-            $path = dirname(dirname($package));
-            if ($files = glob($path . '/phwoolcon-package/config/override-*/*.php')) {
-                $config->merge(new PhalconConfig(static::loadFiles($files)));
-            }
+            $packageDir = dirname(dirname($package));
+            $filesToMerge[] = glob($packageDir . '/phwoolcon-package/config/*.php');
         }
-        if (is_dir($dir = $rootDir . '/phwoolcon-package/config')) {
-            $config->merge(new PhalconConfig(static::loadFiles(glob($dir . '/override-*/*.php'))));
+        // Add vendor overriding configs
+        foreach ($packageFiles as $package) {
+            $packageDir = dirname(dirname($package));
+            $filesToMerge[] = glob($packageDir . '/phwoolcon-package/config/override-*/*.php');
+        }
+        // Add overriding configs in current package
+        $hasCurrentConfig and $filesToMerge[] = glob($currentPackageDir . '/override-*/*.php');
+
+        // Prepare preload config
+        foreach ($filesToMerge as $files) {
+            $config->merge(new PhalconConfig(static::loadFiles($files)));
         }
         PhwoolconConfig::$preloadConfig = $config->toArray();
+
+        // Register testing configs
         PhwoolconConfig::register($di);
     }
 }
