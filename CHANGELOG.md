@@ -2,7 +2,8 @@
 
 ## [v1.0.1](https://github.com/phwoolcon/test-starter/releases/tag/v1.0.1) (2017-11-17)
 #### Refactor:
-* Use `Config::$preloadFiles`
+* Use `Config::$preloadConfig`
+* Migrate test config files from `phwoolcon/phwoolcon`
 
 ## [v1.0.0](https://github.com/phwoolcon/test-starter/releases/tag/v1.0.0) (2017-11-16)
 #### Features:
