@@ -27,6 +27,11 @@ class TestCase extends PhpunitTestCase
      */
     protected $di;
 
+    protected function reloadConfig()
+    {
+        Config::register($this->di);
+    }
+
     public function setUp()
     {
         $_SERVER['SCRIPT_NAME'] = '/index.php';
@@ -38,7 +43,7 @@ class TestCase extends PhpunitTestCase
         Db::register($di);
         Cache::register($di);
         Log::register($di);
-        Config::register($di);
+        $this->reloadConfig();
         Counter::register($this->di);
         Aliases::register($di);
         I18n::register($di);

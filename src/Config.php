@@ -21,6 +21,6 @@ class Config extends PhwoolconConfig
         }
         parent::register($di);
         PhwoolconConfig::$config = $config->merge(new PhalconConfig(static::$config))->toArray();
-        array_set(PhwoolconConfig::$config, 'app.log.level', Logger::DEBUG);
+        PhwoolconConfig::set('app.log.level', Logger::DEBUG);
     }
 }
