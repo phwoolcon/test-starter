@@ -19,21 +19,19 @@ class Config extends PhwoolconConfig
         $filesToMerge = [];
 
         // Add configs in current package
-        $hasCurrentConfig and $filesToMerge[] = glob($currentPackageDir . '/*.php');
+        $filesToMerge[] = $hasCurrentConfig ? glob($currentPackageDir . '/*.php') : [];
 
-        $packageFiles = detectPhwoolconPackageFiles($_SERVER['PHWOOLCON_VENDOR_PATH']);
+        $packages = detectPhwoolconPackageFiles($_SERVER['PHWOOLCON_VENDOR_PATH']);
         // Add vendor configs
-        foreach ($packageFiles as $package) {
+        $overrides = [];
+        foreach ($packages as $package) {
             $packageDir = dirname(dirname($package));
             $filesToMerge[] = glob($packageDir . '/phwoolcon-package/config/*.php');
+            $overrides[] = glob($packageDir . '/phwoolcon-package/config/override-*/*.php');
         }
-        // Add vendor overriding configs
-        foreach ($packageFiles as $package) {
-            $packageDir = dirname(dirname($package));
-            $filesToMerge[] = glob($packageDir . '/phwoolcon-package/config/override-*/*.php');
-        }
+        $filesToMerge = array_merge($filesToMerge, $overrides);
         // Add overriding configs in current package
-        $hasCurrentConfig and $filesToMerge[] = glob($currentPackageDir . '/override-*/*.php');
+        $filesToMerge[] = $hasCurrentConfig ? glob($currentPackageDir . '/override-*/*.php') : [];
 
         // Prepare preload config
         foreach ($filesToMerge as $files) {
