@@ -1,4 +1,5 @@
 /build
 /composer.lock
 vendor
-/tests/root/storage
+/tests/resource/app/config/testing/
+/tests/root/
