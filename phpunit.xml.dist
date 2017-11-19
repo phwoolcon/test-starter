@@ -11,7 +11,7 @@
     stopOnFailure="false">
     <testsuites>
         <testsuite name="Test Starter Test Suite">
-            <directory>tests</directory>
+            <directory>tests/Unit</directory>
         </testsuite>
     </testsuites>
     <filter>

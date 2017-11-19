@@ -1,5 +1,1 @@
-<?php
-
-return [
-    'foo' => 'bar-starter',
-];
+../../../../vendor/phwoolcon/phwoolcon/phwoolcon-package/config/app.php

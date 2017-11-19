@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.0.3](https://github.com/phwoolcon/test-starter/releases/tag/v1.0.3) (2017-11-19)
+#### Refactor:
+* Use resource aggregator to prepare config
+
 ## [v1.0.2](https://github.com/phwoolcon/test-starter/releases/tag/v1.0.2) (2017-11-17)
 #### Tests:
 * Don't need db in this package

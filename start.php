@@ -33,20 +33,4 @@ $_SERVER['PHWOOLCON_ROOT_PATH'] = TEST_ROOT_PATH;
 $_SERVER['PHWOOLCON_CONFIG_PATH'] = TEST_ROOT_PATH . '/app/config';
 $_SERVER['PHWOOLCON_VENDOR_PATH'] = $vendorDir;
 
-$mockCompiledFiles = [
-    '/vendor/phwoolcon/class_aliases.php',
-    '/vendor/phwoolcon/assets.php',
-    '/vendor/phwoolcon/admin_assets.php',
-    '/vendor/phwoolcon/commands.php',
-];
-foreach ($mockCompiledFiles as $mockFile) {
-    $filename = $testRoot . $mockFile;
-    is_dir($dir = dirname($filename)) or mkdir($dir, 0777, true);
-    fileSaveArray($filename, []);
-}
-$storageDirs = ['cache', 'logs', 'session'];
-foreach ($storageDirs as $dir) {
-    $dir = storagePath($dir);
-    removeDir($dir);
-    mkdir($dir, 0777, true);
-}
+is_file($testRootReady = TEST_ROOT_PATH . '/ready') and unlink($testRootReady);
