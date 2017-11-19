@@ -3,7 +3,6 @@
 namespace Phwoolcon\TestStarter;
 
 use Phalcon\Di;
-use Phalcon\Version;
 use PHPUnit\Framework\TestCase as PhpunitTestCase;
 use Phwoolcon\Aliases;
 use Phwoolcon\Cache;
@@ -28,11 +27,8 @@ class TestCase extends PhpunitTestCase
      */
     protected $di;
 
-    protected function prepareTestRoot()
+    protected function prepareTestRoot($testRootReady)
     {
-        if (is_file($testRootReady = TEST_ROOT_PATH . '/ready')) {
-            return;
-        }
         $assembler = new ResourceAggregator(getcwd());
         $assembler->aggregate();
         touch($testRootReady);
@@ -45,10 +41,8 @@ class TestCase extends PhpunitTestCase
 
     public function setUp()
     {
-        $this->prepareTestRoot();
+        is_file($testRootReady = TEST_ROOT_PATH . '/ready') || $this->prepareTestRoot($testRootReady);
 
-        $_SERVER['SCRIPT_NAME'] = '/index.php';
-        $_SERVER['PHWOOLCON_PHALCON_VERSION'] = (int)Version::getId();
         /* @var Di $di */
         $di = $this->di = Di::getDefault();
         Events::register($di);

@@ -85,27 +85,18 @@ class ResourceAggregator
     protected function installConfig()
     {
         $this->message('Installing config...', static::FLAG_SPACE_PAD_CONTINUE);
-        $configPath = $this->testRootDir . '/app/config';
         foreach ($this->packages as $packageFile => $package) {
             $path = $package['path'];
-            if ($configFiles = glob($path . '/phwoolcon-package/config/*.php')) {
-                foreach ($configFiles as $source) {
-                    $configFile = basename($source);
-                    $destination = $configPath . '/' . $configFile;
-                    is_file($destination) and unlink($destination);
-                    symlinkRelative($source, $destination);
-                }
-            }
-
-            if ($overrides = glob($path . '/phwoolcon-package/config/override-*/*.php')) {
-                foreach ($overrides as $override) {
-                    $configFile = basename($override);
-                    $dir = basename(dirname($override));
-                    $destination = $configPath . '/' . $dir . '/' . $configFile;
-                    is_file($destination) and unlink($destination);
-                    symlinkRelative($override, $destination);
-                }
-            }
+            array_map($installer = function ($source) {
+                $configPath = $this->testRootDir . '/app/config';
+                $configFile = basename($source);
+                $subDir = basename(dirname($source)) . '/';
+                $subDir == 'config/' && $subDir = '';
+                $destination = $configPath . '/' . $subDir . $configFile;
+                is_file($destination) && unlink($destination);
+                symlinkRelative($source, $destination);
+            }, glob($path . '/phwoolcon-package/config/*.php'));
+            array_map($installer, glob($path . '/phwoolcon-package/config/override-*/*.php'));
         }
         $this->message(' <info>[ OK ]</info>');
     }
@@ -156,7 +147,7 @@ class ResourceAggregator
                 // @codeCoverageIgnoreStart
                 foreach ($items as $source) {
                     $destination = $migrationPath . basename($source);
-                    is_file($destination) and unlink($destination);
+                    is_file($destination) && unlink($destination);
                     symlinkRelative($source, $destination);
                 }
                 // @codeCoverageIgnoreEnd

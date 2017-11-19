@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Di\FactoryDefault;
+use Phalcon\Version;
 use PHPUnit\Framework\TestCase;
 
 if (!class_exists(TestCase::class) && class_exists(PHPUnit_Framework_TestCase::class)) {
@@ -32,5 +33,7 @@ $di = new FactoryDefault();
 $_SERVER['PHWOOLCON_ROOT_PATH'] = TEST_ROOT_PATH;
 $_SERVER['PHWOOLCON_CONFIG_PATH'] = TEST_ROOT_PATH . '/app/config';
 $_SERVER['PHWOOLCON_VENDOR_PATH'] = $vendorDir;
+$_SERVER['SCRIPT_NAME'] = '/index.php';
+$_SERVER['PHWOOLCON_PHALCON_VERSION'] = (int)Version::getId();
 
 is_file($testRootReady = TEST_ROOT_PATH . '/ready') and unlink($testRootReady);
