@@ -57,7 +57,6 @@ class TestCase extends PhpunitTestCase
         Cookies::register($di);
         Session::register($di);
         Clearer::clear();
-        parent::setUp();
 
         $class = get_class($this);
         Log::debug("================== Running {$class}::{$this->getName()}() ... ==================");

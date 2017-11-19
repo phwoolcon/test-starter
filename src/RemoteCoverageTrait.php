@@ -23,6 +23,11 @@ trait RemoteCoverageTrait
         return glob(storagePath('remote-coverage/cov-*'));
     }
 
+    /**
+     * @return \PHPUnit\Framework\TestResult
+     */
+    abstract public function getTestResultObject();
+
     public function writeRemoteCoverage()
     {
         $coverage = $this->getTestResultObject()->getCodeCoverage();
@@ -30,7 +35,7 @@ trait RemoteCoverageTrait
         $data = $coverage->getData(true);
         foreach ($data as $file => &$lines) {
             foreach ($lines as $line => &$executed) {
-                $executed and $executed = 1;
+                $executed && $executed = 1;
             }
             unset($executed);
         }
