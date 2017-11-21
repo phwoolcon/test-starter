@@ -43,7 +43,7 @@ Please use this library in your phwoolcon project repository (For example `phwoo
     Then `composer update` and run your unit test.
 
 ### For Newly Created Packages
-If you run `package:create` to create your new package, then this library has been included.
+If you run `bin/cli package:create` to create your new package, then this library has been included.
 
 ## Change log
 
