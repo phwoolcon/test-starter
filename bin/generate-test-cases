@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+use Phwoolcon\TestStarter\TestCase\Generator;
+
+$cwd = getcwd();
+include $cwd . '/vendor/autoload.php';
+
+$srcDir = $cwd . '/src';
+$outputDir = $cwd . '/tests';
+$routesFile = $cwd . '/phwoolcon-package/routes.php';
+$generator = new Generator($srcDir, $outputDir, $routesFile);
+$generator->generate();

@@ -36,7 +36,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Phwoolcon\\TestStarter\\": "tests"
+            "Phwoolcon\\TestStarter\\": "tests",
+            "Phwoolcon\\TestStarter\\Foo\\": "tests/resource/src"
         }
     },
     "scripts": {
