@@ -2,11 +2,6 @@
 
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Version;
-use PHPUnit\Framework\TestCase;
-
-if (!class_exists(TestCase::class) && class_exists(PHPUnit_Framework_TestCase::class)) {
-    class_alias(PHPUnit_Framework_TestCase::class, TestCase::class);
-}
 
 error_reporting(-1);
 $_SERVER['PHWOOLCON_ENV'] = 'testing';

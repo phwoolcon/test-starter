@@ -29,7 +29,10 @@
     "autoload": {
         "psr-4": {
             "Phwoolcon\\TestStarter\\": "src"
-        }
+        },
+        "files": [
+            "phwoolcon-package/php5.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
