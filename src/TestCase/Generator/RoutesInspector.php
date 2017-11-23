@@ -19,10 +19,8 @@ class RoutesInspector extends Router
     {
         $this->splitRoutes();
         $testCases = [];
+        unset($this->exactRoutes['HEAD'], $this->regexRoutes['HEAD']);
         foreach ($this->exactRoutes as $method => $routes) {
-            if ($method == 'HEAD') {
-                continue;
-            }
             /* @var Route $route */
             foreach ($routes as $route) {
                 $paths = $route->getPaths();

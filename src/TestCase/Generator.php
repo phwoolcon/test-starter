@@ -79,22 +79,18 @@ class Generator
         ]);
         foreach ($newClasses as $newClass) {
             $reflection = new ReflectionClass($newClass);
-            if (!Text::startsWith($reflection->getFileName(), $this->srcDir, false)) {
-                continue;
-            }
-            // Skip controller classes, because they will be tested via route
-            if ($reflection->isSubclassOf(Controller::class)) {
+            if ((!Text::startsWith($reflection->getFileName(), $this->srcDir, false)) ||
+                // Skip controller classes, because they will be tested via route
+                ($reflection->isSubclassOf(Controller::class))
+            ) {
                 continue;
             }
             $methods = [];
             foreach ($reflection->getMethods() as $method) {
-                if (isset($magicMethods[$method->getName()])) {
-                    continue;
-                }
-                if (!$method->isPublic()) {
-                    continue;
-                }
-                if ($method->getDeclaringClass()->getName() !== $newClass) {
+                if ((isset($magicMethods[$method->getName()])) ||
+                    (!$method->isPublic()) ||
+                    ($method->getDeclaringClass()->getName() !== $newClass)
+                ) {
                     continue;
                 }
                 $methods[] = $method->getName();
