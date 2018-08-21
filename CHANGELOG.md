@@ -1,5 +1,12 @@
 # Changelog
 
+## [v1.0.4](https://github.com/phwoolcon/test-starter/releases/tag/v1.0.4) (2018-8-21)
+#### Bug Fixes:
+* Compatible with php5
+  > PHP Fatal error:  Class 'PHPUnit\Util\Fileloader' not found
+#### Features:
+* Run migrations if provided
+
 ## [v1.0.3](https://github.com/phwoolcon/test-starter/releases/tag/v1.0.3) (2017-11-19)
 #### Refactor:
 * Use resource aggregator to prepare config
