@@ -2,6 +2,11 @@
 
 namespace Phwoolcon\TestStarter;
 
+use Exception;
+use Phalcon\Di;
+use Phwoolcon\Cli\Command\Migrate;
+use Phwoolcon\Log;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 class ResourceAggregator
@@ -19,6 +24,7 @@ class ResourceAggregator
     {
         $this->rootDir = $rootDir;
         $this->testRootDir = $rootDir . '/tests/root';
+        $this->cliOutput = new ConsoleOutput();
     }
 
     public function aggregate()
@@ -198,9 +204,6 @@ class ResourceAggregator
     {
         $eol = !($flag & static::FLAG_CONTINUE);
         $spacePad = $flag & static::FLAG_SPACE_PAD;
-        if (!$this->cliOutput) {
-            $this->cliOutput = new ConsoleOutput();
-        }
         $message = is_array($message) ? implode(PHP_EOL, $message) : $message;
         $message .= $spacePad ? $this->spacePad($message) : '';
         $this->cliOutput->write($message, $eol);
@@ -234,6 +237,21 @@ class ResourceAggregator
             fileSaveArray($filename, []);
         }
         $this->message(' <info>[ OK ]</info>');
+    }
+
+    /**
+     * @param Di $di
+     * @codeCoverageIgnore
+     */
+    public function runMigrations($di)
+    {
+        $migrator = new Migrate('migrate', $di);
+        try {
+            $migrator->run(new ArrayInput([]), $this->cliOutput);
+        } catch (Exception $e) {
+            Log::exception($e);
+            $this->message($e->__toString());
+        }
     }
 
     protected function spacePad($str, $length = 40)

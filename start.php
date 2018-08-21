@@ -27,6 +27,7 @@ ini_get('session.cache_limiter') and ini_set('session.cache_limiter', '');
 $di = new FactoryDefault();
 $_SERVER['PHWOOLCON_ROOT_PATH'] = TEST_ROOT_PATH;
 $_SERVER['PHWOOLCON_CONFIG_PATH'] = TEST_ROOT_PATH . '/app/config';
+$_SERVER['PHWOOLCON_MIGRATION_PATH'] = TEST_ROOT_PATH . '/bin/migrations';
 $_SERVER['PHWOOLCON_VENDOR_PATH'] = $vendorDir;
 $_SERVER['SCRIPT_NAME'] = '/index.php';
 $_SERVER['PHWOOLCON_PHALCON_VERSION'] = (int)Version::getId();
